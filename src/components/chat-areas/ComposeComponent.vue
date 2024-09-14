@@ -2,7 +2,7 @@
     <div class="compose-area">
         <textarea v-model="input" placeholder="Type your message here..." name="chat-input" id="chatInput" @keyup.enter="submitMessage" ref="inputArea" rows="3"></textarea>
         <button @click="submitMessage">
-            s
+            Send
         </button>
     </div>
 </template>
@@ -17,10 +17,10 @@ export default {
   },
   methods: {
     submitMessage() {
-        this.input.trim()
-        this.$emit('submit', this.input);
-        this.input = '';
-      
+        if(this.input.trim()) {
+            this.$emit('submit', this.input);
+            this.input = '';
+        }
     }
   },
 };
