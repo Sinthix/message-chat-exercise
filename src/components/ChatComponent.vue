@@ -1,13 +1,14 @@
 <template>
     <div class="chat-area">
         <ConversationComponent />
-        <ComposeComponent />
+        <ComposeComponent v-model="message" @submit="sendReply"/>
     </div>
 </template>
 
 <script>
 import ConversationComponent from './chat-areas/ConversationComponent.vue';
 import ComposeComponent from './chat-areas/ComposeComponent.vue';
+import { mapActions } from 'vuex';
 
 export default {
     components: {
@@ -16,9 +17,23 @@ export default {
     },
   data() {
     return {
-      
+      message: ''
     };
   },
+  created() {
+    this.fetchConversation();
+    this.fetchMe();
+  },
+  methods: {
+    ...mapActions(['fetchConversation', 'fetchMe', 'sendReply']),
+    sendReply(message) {
+      const newMessage = {
+        author: this.$store.state.me,
+        text: message
+      };
+      this.sendReply(newMessage);
+    }
+  }
 };
 </script>
 
