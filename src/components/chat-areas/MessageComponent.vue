@@ -1,6 +1,11 @@
 <template>
     <div :class="['message-component', { 'message-me': isMe }]">
-      <img :src="message.from.thumbnail" alt="User Thumbnail" class="thumbnail" />
+      <div class="thumbnail-container">
+        <img :src="message.from.thumbnail" alt="User Thumbnail" class="thumbnail" @mouseover="showTooltip" @mouseout="hideTooltip"/>
+        <div v-if="tooltipVisible" class="tooltip">
+          {{ message.from.firstName }} {{ message.from.lastName }}
+        </div>
+      </div>
       <div class="message-bubble">
         <p>{{ message.message  }}</p>
       </div>
@@ -19,6 +24,19 @@
         type: Boolean,
         default: false
       }
+    },
+    data() {
+    return {
+      tooltipVisible: false
+    };
+    },
+    methods: {
+      showTooltip() {
+        this.tooltipVisible = true;
+      },
+      hideTooltip() {
+        this.tooltipVisible = false;
+      }
     }
   };
   </script>
@@ -32,6 +50,11 @@
 
 .message-me {
   flex-direction: row-reverse;
+}
+
+.thumbnail-container {
+  position: relative;
+  overflow: visible;
 }
 
 .thumbnail {
@@ -57,5 +80,20 @@
 .message-me .message-bubble {
   background-color: #0084ff;
   color: white;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%); 
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 1000;
+  pointer-events: none;
 }
   </style>
