@@ -1,16 +1,27 @@
 <template>
     <div class="conversation-area">
-        
+        <MessageComponent v-for="(message, index) in messages" :key="index" :message="message" />
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import MessageComponent from './MessageComponent.vue';
+
 export default {
-  data() {
-    return {
+    components: {
+        MessageComponent
+    },
+    data() {
+        return {
       
-    };
-  },
+        };
+    },
+    computed: {
+        ...mapState({
+            messages: state => state.conversation
+        })
+    }
 };
 </script>
 
