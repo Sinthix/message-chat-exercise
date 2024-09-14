@@ -1,7 +1,7 @@
 <template>
     <div class="chat-area">
         <ConversationComponent />
-        <ComposeComponent v-model="message" @submit="sendReply"/>
+        <ComposeComponent v-model="message" :rows="3" @submit="sendReply"/>
     </div>
 </template>
 
@@ -28,10 +28,11 @@ export default {
     ...mapActions(['fetchConversation', 'fetchMe', 'sendReply']),
     sendReply(message) {
       const newMessage = {
-        author: this.$store.state.me,
+        from: this.$store.state.me,
         text: message
       };
-      this.sendReply(newMessage);
+      this.$store.dispatch('sendReply', newMessage);
+      this.message = '';
     }
   }
 };

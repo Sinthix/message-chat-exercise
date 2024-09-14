@@ -1,56 +1,61 @@
 <template>
-    <div :class="['message-component', isCurrentUser ? 'sent' : 'received']">
-      <img :src="message.from.thumbnail" class="thumbnail" />
-      <div class="bubble">{{ message.message }}</div>
-    </div>
+    <div :class="['message-component', { 'message-me': isMe }]">
+      <img :src="message.from.thumbnail" alt="User Thumbnail" class="thumbnail" />
+      <div class="message-bubble">
+        <p>{{ message.message }}</p>  <!-- Render the message content -->
+      </div>
+  </div>
   </template>
   
   <script>
   
   export default {
     props: {
-      message: Object
-    },
-    computed: {
-      isCurrentUser() {
-        return this.message.from.id === this.$store.state.me.id;
+      message: {
+        type: Object,
+        required: true
+      },
+      isMe: {
+        type: Boolean,
+        default: false
       }
     }
   };
   </script>
   
   <style scoped>
-  .message-component {
-    display: flex;
-    margin-bottom: 16px;
-    align-items: flex-end;
-  }
-  
-  .message-component.sent {
-    justify-content: flex-end;
-  }
-  
-  .message-component.received {
-    justify-content: flex-start;
-  }
-  
-  .thumbnail {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    margin-right: 12px;
-  }
-  
-  .bubble {
-    max-width: 60%;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: #f0f0f0;
-    word-wrap: break-word;
-  }
-  
-  .message-entry.sent .bubble {
-    background-color: #007bff;
-    color: white;
-  }
+.message-component {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.message-me {
+  flex-direction: row-reverse;
+}
+
+.thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.message-me .thumbnail {
+  margin-left: 12px;
+  margin-right: 0;
+}
+
+.message-bubble {
+  background-color: lightgray;
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.message-me .message-bubble {
+  background-color: #0084ff;
+  color: white;
+}
   </style>

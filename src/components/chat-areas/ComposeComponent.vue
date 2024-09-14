@@ -1,7 +1,7 @@
 <template>
     <div class="compose-area">
-        <textarea placeholder="Type your message here..." name="chat-input" id="chatInput" rows="3"></textarea>
-        <button>
+        <textarea placeholder="Type your message here..." name="chat-input" id="chatInput" @keyup.enter="submitMessage" ref="inputArea" rows="3"></textarea>
+        <button @click="submitMessage">
             s
         </button>
     </div>
@@ -11,8 +11,17 @@
 export default {
   data() {
     return {
-      
+        input: '',
+        rows: 1
     };
+  },
+  methods: {
+    submitMessage() {
+        this.input.trim()
+        this.$emit('submit', this.input);
+        this.input = '';
+      
+    }
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="conversation-area">
-        <MessageComponent v-for="(message, index) in messages" :key="index" :message="message" />
+        <MessageComponent v-for="(message, index) in messages" :key="index" :message="message" :isMe="message.from.id === me.id"/>
     </div>
 </template>
 
@@ -19,7 +19,8 @@ export default {
     },
     computed: {
         ...mapState({
-            messages: state => state.conversation
+            messages: state => state.conversation,
+            me: state => state.me
         })
     }
 };
