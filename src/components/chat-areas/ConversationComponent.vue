@@ -1,5 +1,5 @@
 <template>
-    <div class="conversation-area">
+    <div class="conversation-area" ref="conversationArea">
         <MessageComponent v-for="(message, index) in messages" :key="index" :message="message" :isMe="message.from.id === me.id"/>
     </div>
 </template>
@@ -22,6 +22,24 @@ export default {
             messages: state => state.conversation,
             me: state => state.me
         })
+    },
+    watch: {
+        messages() {
+        this.scrollToBottom();  
+        }
+        },
+        mounted() {
+            this.scrollToBottom(); 
+    },
+    methods: {
+    scrollToBottom() {
+        this.$nextTick(() => {
+            const conversationArea = this.$refs.conversationArea;
+            if (conversationArea) {
+            conversationArea.scrollTop = conversationArea.scrollHeight;
+            }
+        });
+        }
     }
 };
 </script>
