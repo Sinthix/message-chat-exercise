@@ -2,7 +2,7 @@
     <div :class="['message-component', { 'message-me': isMe }]">
       <img :src="message.from.thumbnail" alt="User Thumbnail" class="thumbnail" />
       <div class="message-bubble">
-        <p>{{ message.message }}</p>  <!-- Render the message content -->
+        <p>{{ message.message  }}</p>
       </div>
   </div>
   </template>

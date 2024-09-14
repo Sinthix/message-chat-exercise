@@ -1,6 +1,6 @@
 <template>
     <div class="compose-area">
-        <textarea placeholder="Type your message here..." name="chat-input" id="chatInput" @keyup.enter="submitMessage" ref="inputArea" rows="3"></textarea>
+        <textarea v-model="input" placeholder="Type your message here..." name="chat-input" id="chatInput" @keyup.enter="submitMessage" ref="inputArea" rows="3"></textarea>
         <button @click="submitMessage">
             s
         </button>

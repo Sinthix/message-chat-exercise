@@ -29,7 +29,7 @@ export default {
     sendReply(message) {
       const newMessage = {
         from: this.$store.state.me,
-        text: message
+        message: message
       };
       this.$store.dispatch('sendReply', newMessage);
       this.message = '';
